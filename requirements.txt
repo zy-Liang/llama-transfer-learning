@@ -4,4 +4,3 @@ accelerate
 bitsandbytes
 datasets
 peft
-cog
