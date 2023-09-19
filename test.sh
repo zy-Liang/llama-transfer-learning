@@ -2,7 +2,7 @@
 #SBATCH --job-name=test
 #SBATCH --account=dinov99
 #SBATCH --partition=spgpu
-#SBATCH --gpus=1
+#SBATCH --gpus=2
 #SBATCH --mem-per-cpu=20g
 #SBATCH --mail-user=tingtind@umich.edu
 #SBATCH --mail-type=BEGIN,END,FAIL

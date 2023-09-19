@@ -18,7 +18,7 @@ from peft import (
 )
 
 torch.cuda.empty_cache()
-os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:10240"
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:2048"
 
 MICRO_BATCH_SIZE = 64
 BATCH_SIZE = 256
