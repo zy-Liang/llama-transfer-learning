@@ -9,7 +9,7 @@ import bitsandbytes as bnb
 from datasets import load_dataset
 import transformers
 
-from transformers import LlamaForCausalLM, LlamaTokenizer, AutoTokenizer
+from transformers import LlamaForCausalLM, LlamaTokenizer, AutoTokenizer, MT5ForConditionalGeneration
 from peft import (
     prepare_model_for_int8_training,
     LoraConfig,
@@ -29,20 +29,21 @@ LORA_ALPHA = 16
 LORA_DROPOUT = 0.05
 VAL_SET_SIZE = 200
 TARGET_MODULES = [
-    "q_proj",
-    "v_proj",
+    "query",
+    "value",
 ]
 
-DATA_PATH = "drive/My Drive/small_sample_adj.json" # Change this accordingly
-OUTPUT_DIR = "drive/My Drive/lora-alpaca" # The directory to save the model. Change accordingly
+DATA_PATH = "datasets/test/small_sample_adj.json" # Change this accordingly
+OUTPUT_DIR = "out/lora-alpaca" # The directory to save the model. Change accordingly
 
 device_map = "auto"
 world_size = int(os.environ.get("WORLD_SIZE", 1))
+print(f"world_size: {world_size}")
 ddp = world_size != 1
 if ddp:
     device_map = {"": int(os.environ.get("LOCAL_RANK") or 0)}
     GRADIENT_ACCUMULATION_STEPS = GRADIENT_ACCUMULATION_STEPS // world_size
-
+print(f"device_map: {device_map}")
 # model = LlamaForCausalLM.from_pretrained(
 #     "drive/My Drive/output/",
 #     load_in_8bit=True,
@@ -52,24 +53,27 @@ if ddp:
 #     "drive/My Drive/output/", add_eos_token=True
 # )
 
-PATH_TO_CONVERTED_WEIGHTS = "drive/My Drive/output/" # The path to the saved weights. Change accordingly
-PATH_TO_CONVERTED_TOKENIZER = "drive/My Drive/output/" # The path to the tokenizer. Change accordingly
+PATH_TO_CONVERTED_WEIGHTS = "bigscience/mt0-small" # The path to the saved weights. Change accordingly
+PATH_TO_CONVERTED_TOKENIZER = "bigscience/mt0-small" # The path to the tokenizer. Change accordingly
 
-model_llama = LlamaForCausalLM.from_pretrained(PATH_TO_CONVERTED_WEIGHTS)
+model_llama = MT5ForConditionalGeneration.from_pretrained(PATH_TO_CONVERTED_WEIGHTS) # change the class according to the model type
 tokenizer = AutoTokenizer.from_pretrained(PATH_TO_CONVERTED_TOKENIZER) # To be honest, I'm not sure about the difference between autotokenizer and llamatokenizer...
 
 model = prepare_model_for_int8_training(model_llama)
 
+print("Tokenizer loaded.")
 config = LoraConfig(
     r=LORA_R,
     lora_alpha=LORA_ALPHA,
-    target_modules=TARGET_MODULES,
+    # target_modules=TARGET_MODULES,
     lora_dropout=LORA_DROPOUT,
     bias="none",
     task_type="CAUSAL_LM",
 )
 model = get_peft_model(model, config)
+model.print_trainable_parameters()
 tokenizer.pad_token_id = 0  # unk. we want this to be different from the eos token
+print("Loading data...")
 data = load_dataset("json", data_files=DATA_PATH)
 
 
@@ -115,6 +119,7 @@ def generate_and_tokenize_prompt(data_point):
     return tokenize(prompt)
 
 
+print("Tokenizing data...")
 if VAL_SET_SIZE > 0:
     train_val = data["train"].train_test_split(
         test_size=VAL_SET_SIZE, shuffle=True, seed=42
@@ -125,6 +130,7 @@ else:
     train_data = data["train"].shuffle().map(generate_and_tokenize_prompt)
     val_data = None
 
+print("Building trainer...")
 trainer = transformers.Trainer(
     model=model,
     train_dataset=train_data,
@@ -148,7 +154,7 @@ trainer = transformers.Trainer(
     ),
     data_collator=transformers.DataCollatorForLanguageModeling(tokenizer, mlm=False),
 )
-model.config.use_cache = False
+model.config.use_cache = True
 
 old_state_dict = model.state_dict
 model.state_dict = (
@@ -159,8 +165,10 @@ if torch.__version__ >= "2" and sys.platform != "win32":
     model = torch.compile(model)
 
 if __name__ == "__main__":
+    print("Training...")
     trainer.train()
-
+    
+    print("Saving model...")
     model.save_pretrained(OUTPUT_DIR)
 
     # Test
