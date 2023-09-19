@@ -17,6 +17,7 @@ from peft import (
     get_peft_model_state_dict,
 )
 
+torch.cuda.empty_cache()
 
 MICRO_BATCH_SIZE = 64
 BATCH_SIZE = 256
