@@ -14,5 +14,6 @@ source /nfs/turbo/umms-dinov/LLaMA/2.0.0/bin/activate
 # torchrun --nproc_per_node 1 /home/tingtind/llama/example_text_completion.py \
 #     --ckpt_dir /nfs/turbo/umms-dinov/LLaMA/2.0.0/llama/modeltoken/llama-2-7b \
 #     --tokenizer_path /nfs/turbo/umms-dinov/LLaMA/1.0.1/llama/modeltoken/tokenizer.model
+pip install -r requirements.txt
 
 python finetune_peft.py
