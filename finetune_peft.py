@@ -20,10 +20,10 @@ from peft import (
 
 torch.cuda.empty_cache()
 
-print(torch.cuda.memory_summary(device=None, abbreviated=False))
+print(torch.cuda.memory_summary())
 
 MICRO_BATCH_SIZE = 64
-BATCH_SIZE = 256
+BATCH_SIZE = 128
 GRADIENT_ACCUMULATION_STEPS = BATCH_SIZE // MICRO_BATCH_SIZE
 EPOCHS = 3  
 LEARNING_RATE = 3e-4  # the Karpathy constant
