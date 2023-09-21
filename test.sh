@@ -2,8 +2,8 @@
 #SBATCH --job-name=test
 #SBATCH --account=dinov99
 #SBATCH --partition=spgpu
-#SBATCH --gpus=2
-#SBATCH --mem-per-cpu=20g
+#SBATCH --gpus=3
+#SBATCH --mem-per-cpu=50g
 #SBATCH --mail-user=tingtind@umich.edu
 #SBATCH --mail-type=BEGIN,END,FAIL
 module purge
