@@ -22,8 +22,8 @@ torch.cuda.empty_cache()
 
 print(torch.cuda.memory_summary())
 
-MICRO_BATCH_SIZE = 64
-BATCH_SIZE = 128
+MICRO_BATCH_SIZE = 32
+BATCH_SIZE = 64
 GRADIENT_ACCUMULATION_STEPS = BATCH_SIZE // MICRO_BATCH_SIZE
 EPOCHS = 3  
 LEARNING_RATE = 3e-4  # the Karpathy constant
