@@ -5,3 +5,4 @@ bitsandbytes
 datasets
 peft
 scipy
+trl
