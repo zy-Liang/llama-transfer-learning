@@ -18,4 +18,8 @@ source env/bin/activate
 #     --ckpt_dir /nfs/turbo/umms-dinov/LLaMA/2.0.0/llama/modeltoken/llama-2-7b \
 #     --tokenizer_path /nfs/turbo/umms-dinov/LLaMA/1.0.1/llama/modeltoken/tokenizer.model
 
+export 'HUGGINGFACE_TOKEN=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'
+
+huggingface-cli login --token $HUGGINGFACE_TOKEN
+
 python test_hg.py
