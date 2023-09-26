@@ -204,12 +204,19 @@ training_arguments = TrainingArguments(
     report_to="tensorboard"
 )
 
+def formatting_func(example):
+    choice_text = ""
+    for c in example['choices']:
+        choice_text += f"{c}; "
+    text = f"### Question: {example['question']}\n ### Choices: {choice_text} ### Answer: {example['answer'][0]}"
+    return text
+
 # Set supervised fine-tuning parameters
 trainer = SFTTrainer(
     model=model,
     train_dataset=dataset,
     peft_config=peft_config,
-    dataset_text_field="text",
+    formatting_func=formatting_func,
     max_seq_length=max_seq_length,
     tokenizer=tokenizer,
     args=training_arguments,
