@@ -22,4 +22,4 @@ export 'HUGGINGFACE_TOKEN=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'
 
 huggingface-cli login --token $HUGGINGFACE_TOKEN
 
-python test_loaddataset.py
+python fine_tune_llama_2_in_google_colab.py

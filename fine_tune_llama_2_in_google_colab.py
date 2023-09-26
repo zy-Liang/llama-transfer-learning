@@ -35,10 +35,10 @@ from trl import SFTTrainer
 model_name = "NousResearch/Llama-2-7b-chat-hf"
 
 # The instruction dataset to use
-dataset_name = "mlabonne/guanaco-llama2-1k"
+dataset_name = "bigbio/med_qa"
 
 # Fine-tuned model name
-new_model = "llama-2-7b-miniguanaco"
+new_model = "llama-2-7b-med_qa"
 
 ################################################################################
 # QLoRA parameters
@@ -258,7 +258,7 @@ tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
 tokenizer.pad_token = tokenizer.eos_token
 tokenizer.padding_side = "right"
 
-!huggingface-cli login
+# !huggingface-cli login
 
 model.push_to_hub(new_model, use_temp_dir=False)
 tokenizer.push_to_hub(new_model, use_temp_dir=False)
