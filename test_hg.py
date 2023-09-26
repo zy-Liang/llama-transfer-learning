@@ -1,5 +1,6 @@
 import os
 import torch
+import transformers
 from datasets import load_dataset
 from transformers import (
     AutoModelForCausalLM,
