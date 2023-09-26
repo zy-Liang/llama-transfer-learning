@@ -215,9 +215,9 @@ def formatting_func(example):
     output_texts = []
     for i in range(len(example['question'])):
         choice_text = ""
-        for j in range(len(example['choices'][i])):
-            choice_text += f"{example['choices'][i][j]}; "
-        text = f"### Question: {example['question'][i]}\n ### Choices: {choice_text} ### Answer: {example['answer'][i][0]}"
+        for j in range(len(example['options'][i])):
+            choice_text += f"{example['options'][i][j]['value']}; "
+        text = f"### Question: {example['question'][i]}\n ### Choices: {choice_text} ### Answer: {example['answer'][i]}"
         output_texts.append(text)
     return output_texts
 
