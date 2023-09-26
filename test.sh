@@ -22,4 +22,4 @@ export 'HUGGINGFACE_TOKEN=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'
 
 huggingface-cli login --token $HUGGINGFACE_TOKEN
 
-python test_hg.py
+python test_loaddataset.py

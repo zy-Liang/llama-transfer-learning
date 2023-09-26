@@ -29,3 +29,5 @@ new_model = "llama-2-7b-miniguanaco"
 # Load dataset (you can process it here)
 dataset = load_dataset(dataset_name, split="train")
 
+print(type(dataset))
+print(len(dataset))
