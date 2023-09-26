@@ -31,3 +31,5 @@ dataset = load_dataset(dataset_name, split="train")
 
 print(type(dataset))
 print(len(dataset))
+
+print(dataset[0])
