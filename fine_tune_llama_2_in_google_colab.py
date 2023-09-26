@@ -204,12 +204,22 @@ training_arguments = TrainingArguments(
     report_to="tensorboard"
 )
 
+# def formatting_func(example):
+#     choice_text = ""
+#     for c in example['choices']:
+#         choice_text += f"{c}; "
+#     text = f"### Question: {example['question']}\n ### Choices: {choice_text} ### Answer: {example['answer'][0]}"
+#     return text
+
 def formatting_func(example):
-    choice_text = ""
-    for c in example['choices']:
-        choice_text += f"{c}; "
-    text = f"### Question: {example['question']}\n ### Choices: {choice_text} ### Answer: {example['answer'][0]}"
-    return text
+    output_texts = []
+    for i in range(len(example['question'])):
+        choice_text = ""
+        for j in range(len(example['choices'][i])):
+            choice_text += f"{example['choices'][i][j]}; "
+        text = f"### Question: {example['question'][i]}\n ### Choices: {choice_text} ### Answer: {example['answer'][i][0]}"
+        output_texts.append(text)
+    return output_texts
 
 # Set supervised fine-tuning parameters
 trainer = SFTTrainer(
