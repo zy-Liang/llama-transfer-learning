@@ -4,10 +4,10 @@ from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
     BitsAndBytesConfig,
-    HfArgumentParser,
-    TrainingArguments,
+    # HfArgumentParser,
+    # TrainingArguments,
     pipeline,
-    logging,
+    # logging,
 )
 
 model_name = "meta-llama/Llama-2-7b-chat-hf"
