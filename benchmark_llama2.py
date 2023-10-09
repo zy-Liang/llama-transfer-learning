@@ -62,9 +62,20 @@ for i in range(len(dataset)):
     choice_text = ""
     for option in dataset['options'][i]:
         choice_text += f"{option['key']}. {option['value']}\n"
-    prompt = (
+    prompt = (f"Example Input:\n"
+        f"### Question: What's the result of 1 + 1?\n"
+        f"### Choices:\n"
+        f"A. 1\n"
+        f"B. 2\n"
+        f"C. 3\n"
+        f"D. 4\n"
+        f"E. 5\n\n"
+        f"Example Output:\n"
+        f"### Answer: B. 2\n"
+        f"Input:\n"
         f"### Question: {dataset['question'][i]}\n"
         f"### Choices:\n{choice_text}\n"
+        f"Output:\n"
         "### Answer:"
     )
     pipe = pipeline(task="text-generation", model=model, tokenizer=tokenizer, max_new_tokens=10)
