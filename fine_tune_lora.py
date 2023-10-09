@@ -203,7 +203,7 @@ def formatting_func(example):
         text = (
             f"### Question: {example['question'][i]}\n"
             f"### Choices: {choice_text}\n"
-            f"### Answer: {example['answer_idx']}. {example['answer'][i]}\n"
+            f"### Answer: {example['answer_idx'][i]}. {example['answer'][i]}\n"
         )
         output_texts.append(text)
     return output_texts
