@@ -16,4 +16,4 @@ export 'HUGGINGFACE_TOKEN=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'
 
 huggingface-cli login --token $HUGGINGFACE_TOKEN
 
-python fine_tune_llama2.py
+python fine_tune_lora.py
