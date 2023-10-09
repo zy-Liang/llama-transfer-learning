@@ -56,6 +56,7 @@ tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
 tokenizer.pad_token = tokenizer.eos_token
 tokenizer.padding_side = "right" # Fix weird overflow issue with fp16 training
 
+dataset = dataset[0:10]
 # correct = 0
 for i in range(len(dataset)):
     choice_text = ""
@@ -66,10 +67,11 @@ for i in range(len(dataset)):
         f"### Choices: {choice_text}\n"
         f"### Answer: {dataset['answer_idx'][i]}. {dataset['answer'][i]}\n"
     )
-    pipe = pipeline(task="text-generation", model=model, tokenizer=tokenizer, max_length=10)
+    pipe = pipeline(task="text-generation", model=model, tokenizer=tokenizer, max_new_tokens=10)
     result = pipe(f"{prompt}")
     print("==========================")
     print(prompt)
+    print('--------------------------')
     print(result[0]['generated_text'])
     print("==========================")
 # print(f"Test accuracy: {correct / len(dataset)}")
