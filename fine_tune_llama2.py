@@ -190,17 +190,20 @@ training_arguments = TrainingArguments(
     max_steps=max_steps,
     warmup_ratio=warmup_ratio,
     group_by_length=group_by_length,
-    lr_scheduler_type=lr_scheduler_type,
-    # report_to="tensorboard"
+    lr_scheduler_type=lr_scheduler_type
 )
 
 def formatting_func(example):
     output_texts = []
     for i in range(len(example['question'])):
         choice_text = ""
-        for j in range(len(example['options'][i])):
-            choice_text += f"{example['options'][i][j]['value']}; "
-        text = f"### Question: {example['question'][i]}\n ### Choices: {choice_text} ### Answer: {example['answer'][i]}"
+        for option in example['options'][i]:
+            choice_text += f"{option['key']}. {option['value']}\n"
+        text = (
+            f"### Question: {example['question'][i]}\n",
+            f"### Choices: {choice_text}\n",
+            f"### Answer: {example['answer_idx']}. {example['answer'][i]}\n"
+        )
         output_texts.append(text)
     return output_texts
 
@@ -228,11 +231,22 @@ trainer.model.save_pretrained(new_model)
 # Ignore warnings
 logging.set_verbosity(logging.CRITICAL)
 
+dataset = load_dataset(dataset_name, split="test")
+
 # Run text generation pipeline with our next model
-prompt = "What is a large language model?"
-pipe = pipeline(task="text-generation", model=model, tokenizer=tokenizer, max_length=200)
-result = pipe(f"<s>[INST] {prompt} [/INST]")
-print(result[0]['generated_text'])
+# prompt = "What is a large language model?"
+# pipe = pipeline(task="text-generation", model=model, tokenizer=tokenizer, max_length=200)
+# result = pipe(f"<s>[INST] {prompt} [/INST]")
+# print(result[0]['generated_text'])
+
+# correct = 0
+# for entry in dataset:
+#     prompt = ""
+#     pipe = pipeline(task="text-generation", model=model, tokenizer=tokenizer, max_length=1)
+#     result = pipe(f"<s>[INST] {prompt} [/INST]")
+#     if result[0]['generated_text'] == answer:
+#         correct += 1
+# print(f"Test accuracy: {collect / len(dataset)}")
 
 # Empty VRAM
 del model
