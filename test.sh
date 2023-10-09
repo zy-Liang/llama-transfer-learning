@@ -9,7 +9,6 @@
 #SBATCH --time=01-00:00:00
 module purge
 module load gcc cuda/11.7.1 cudnn/11.7-v8.7.0 python
-# source /nfs/turbo/umms-dinov/LLaMA/2.0.0/bin/activate
 source env/bin/activate
 
 
@@ -17,4 +16,4 @@ export 'HUGGINGFACE_TOKEN=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'
 
 huggingface-cli login --token $HUGGINGFACE_TOKEN
 
-python fine_tune_llama_2_in_google_colab.py
+python fine_tune_llama2.py
