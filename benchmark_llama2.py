@@ -73,5 +73,8 @@ for i in range(len(dataset)):
     print(prompt)
     print('--------------------------')
     print(result[0]['generated_text'])
+    print('--------------------------')
+    index = len(prompt)
+    print(result[0]['generated_text'][index])
     print("==========================")
 # print(f"Test accuracy: {correct / len(dataset)}")
