@@ -56,7 +56,7 @@ tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
 tokenizer.pad_token = tokenizer.eos_token
 tokenizer.padding_side = "right" # Fix weird overflow issue with fp16 training
 
-dataset = dataset[0:10]
+# dataset = dataset[0:10]
 correct = 0
 for i in range(len(dataset)):
     choice_text = ""
@@ -82,8 +82,8 @@ for i in range(len(dataset)):
     result = pipe(f"{prompt}")
     result = result[0]['generated_text']
     print("==========================")
-    print(prompt)
-    print('--------------------------')
+    # print(prompt)
+    # print('--------------------------')
     print(result)
     print('--------------------------')
     index = result.rfind("### Answer:")
