@@ -56,6 +56,7 @@ tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
 tokenizer.pad_token = tokenizer.eos_token
 tokenizer.padding_side = "right" # Fix weird overflow issue with fp16 training
 
+print("==========================")
 # dataset = dataset[0:10]
 correct = 0
 for i in range(len(dataset)):
@@ -81,7 +82,6 @@ for i in range(len(dataset)):
     pipe = pipeline(task="text-generation", model=model, tokenizer=tokenizer, max_new_tokens=10)
     result = pipe(f"{prompt}")
     result = result[0]['generated_text']
-    print("==========================")
     # print(prompt)
     # print('--------------------------')
     print(result)
@@ -89,7 +89,7 @@ for i in range(len(dataset)):
     index = result.rfind("### Answer:")
     index += len("### Answer: ")
     result = result[index]
-    print(result)
+    print(f"model answer: {result}, correct answer: {dataset['answer_idx'][i]}")
     print("==========================")
     if result == dataset['answer_idx'][i]:
         correct += 1
