@@ -57,7 +57,7 @@ tokenizer.pad_token = tokenizer.eos_token
 tokenizer.padding_side = "right" # Fix weird overflow issue with fp16 training
 
 dataset = dataset[0:10]
-# correct = 0
+correct = 0
 for i in range(len(dataset)):
     choice_text = ""
     for option in dataset['options'][i]:
@@ -87,7 +87,10 @@ for i in range(len(dataset)):
     print(result)
     print('--------------------------')
     index = result.rfind("### Answer:")
-    index += len("### Answer:")
-    print(result[index])
+    index += len("### Answer: ")
+    result = result[index]
+    print(result)
     print("==========================")
-# print(f"Test accuracy: {correct / len(dataset)}")
+    if result == dataset['answer_idx'][i]:
+        correct += 1
+print(f"Test accuracy: {correct / len(dataset)}")
