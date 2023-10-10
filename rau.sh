@@ -16,4 +16,4 @@ export 'HUGGINGFACE_TOKEN=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'
 
 huggingface-cli login --token $HUGGINGFACE_TOKEN
 
-python read_end_upload.py
+python read_and_upload.py
