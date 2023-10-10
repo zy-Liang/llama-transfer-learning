@@ -12,7 +12,7 @@ module load gcc cuda/11.7.1 cudnn/11.7-v8.7.0 python
 source env/bin/activate
 
 
-export 'HUGGINGFACE_TOKEN=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'
+export 'HUGGINGFACE_TOKEN=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'
 
 huggingface-cli login --token $HUGGINGFACE_TOKEN
 
