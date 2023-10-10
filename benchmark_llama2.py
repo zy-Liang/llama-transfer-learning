@@ -93,4 +93,6 @@ for i in range(len(dataset)):
     print("==========================")
     if result == dataset['answer_idx'][i]:
         correct += 1
-print(f"Test accuracy: {correct / len(dataset)}")
+print(f"Questions: {len(dataset)}")
+print(f"Correct questions: {correct}")
+print(f"Accuracy: {correct / len(dataset)}")
