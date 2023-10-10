@@ -232,7 +232,7 @@ trainer.model.save_pretrained(new_model)
 # Ignore warnings
 logging.set_verbosity(logging.CRITICAL)
 
-dataset = load_dataset(dataset_name, split="test")
+# dataset = load_dataset(dataset_name, split="test")
 
 # Run text generation pipeline with our next model
 # prompt = "What is a large language model?"
@@ -251,7 +251,7 @@ dataset = load_dataset(dataset_name, split="test")
 
 # Empty VRAM
 del model
-del pipe
+# del pipe
 del trainer
 import gc
 gc.collect()
