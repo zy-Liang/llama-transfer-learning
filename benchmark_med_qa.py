@@ -10,7 +10,7 @@ from transformers import (
     # logging,
 )
 
-model_name = "meta-llama/Llama-2-7b-chat-hf"
+model_name = "llama-2-7b-med_qa"
 dataset_name = "bigbio/med_qa"
 
 dataset = load_dataset(dataset_name, split="test")
