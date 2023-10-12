@@ -118,7 +118,7 @@ for i in range(len(dataset)):
     result = result[index]
     print(f"model answer: {result}, correct answer: {dataset['answer_idx'][i]}")
     print("==========================")
-    if result == dataset['answer_idx'][i]:
+    if result == answers_index[dataset['cop'][i]]:
         correct += 1
 print(f"Questions: {len(dataset)}")
 print(f"Correct questions: {correct}")
