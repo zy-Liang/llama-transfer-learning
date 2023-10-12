@@ -116,7 +116,7 @@ for i in range(len(dataset)):
     index = result.rfind("### Answer:")
     index += len("### Answer: ")
     result = result[index]
-    print(f"model answer: {result}, correct answer: {dataset['answer_idx'][i]}")
+    print(f"model answer: {result}, correct answer: {answers_index[dataset['cop'][i]]}")
     print("==========================")
     if result == answers_index[dataset['cop'][i]]:
         correct += 1
