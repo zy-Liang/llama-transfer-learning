@@ -84,12 +84,10 @@ tokenizer.padding_side = "right" # Fix weird overflow issue with fp16 training
 # tokenizer.push_to_hub(new_model, use_temp_dir=False)
 
 print("==========================")
-dataset = dataset[0:10]
 correct = 0
 answers_index = ["A", "B", "C", "D"]
 for i in range(len(dataset)):
     choice_text = f"A. {dataset['opa'][i]}\nB. {dataset['opb'][i]}\nC. {dataset['opc'][i]}\nD. {dataset['opd'][i]}\n"
-    answers = [dataset['opa'][i], dataset['opb'][i], dataset['opc'][i], dataset['opd'][i]]
     prompt = (f"Example Input:\n"
         f"### Question: What's the result of 1 + 1?\n"
         f"### Choices:\n"
@@ -97,7 +95,6 @@ for i in range(len(dataset)):
         f"B. 2\n"
         f"C. 3\n"
         f"D. 4\n"
-        f"E. 5\n\n"
         f"Example Output:\n"
         f"### Answer: B. 2\n"
         f"Input:\n"
