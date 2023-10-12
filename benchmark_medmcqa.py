@@ -84,7 +84,7 @@ tokenizer.padding_side = "right" # Fix weird overflow issue with fp16 training
 # tokenizer.push_to_hub(new_model, use_temp_dir=False)
 
 print("==========================")
-# dataset = dataset[0:10]
+dataset = dataset[0:10]
 correct = 0
 answers_index = ["A", "B", "C", "D"]
 for i in range(len(dataset)):
