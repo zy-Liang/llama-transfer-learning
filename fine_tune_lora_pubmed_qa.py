@@ -131,7 +131,7 @@ packing = False
 device_map = {"": 0}
 
 # Load dataset (you can process it here)
-dataset = load_dataset(dataset_name, split="train")
+dataset = load_dataset(dataset_name, 'pqa_artificial', split="train")
 
 print(len(dataset))
 
