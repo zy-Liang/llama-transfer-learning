@@ -3,7 +3,7 @@
 #SBATCH --account=dinov99
 #SBATCH --partition=spgpu
 #SBATCH --gpus=1
-#SBATCH --mem-per-cpu=10g
+#SBATCH --mem-per-cpu=20g
 #SBATCH --mail-user=tingtind@umich.edu
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --time=01-00:00:00
