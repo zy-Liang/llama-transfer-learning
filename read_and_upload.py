@@ -6,9 +6,9 @@ from transformers import (
 from peft import PeftModel
 
 # Fine-tuned model name
-new_model = "llama-2-7b-medmcqa"
+new_model = "llama-2-7b-pubmed_qa"
 
-model_name = "akaiDing/llama-2-7b-med_qa"
+model_name = "akaiDing/llama-2-7b-medmcqa"
 
 device_map = {"": 0}
 
