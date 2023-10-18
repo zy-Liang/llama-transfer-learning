@@ -10,7 +10,7 @@ from transformers import (
     # logging,
 )
 
-model_name = "llama-2-7b-medmcqa"
+model_name = "akaiDing/llama-2-7b-medmcqa"
 dataset_name = "bigbio/med_qa"
 
 dataset = load_dataset(dataset_name, split="test")
