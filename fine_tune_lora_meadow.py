@@ -26,10 +26,10 @@ from trl import SFTTrainer
 model_name = "akaiDing/llama-2-7b-medmcqa"
 
 # The instruction dataset to use
-dataset_name = "medal"
+dataset_name = "medalpaca/medical_meadow_medqa"
 
 # Fine-tuned model name
-new_model = "llama-2-7b-medal"
+new_model = "llama-2-7b-meadow"
 
 ################################################################################
 # QLoRA parameters
@@ -155,7 +155,6 @@ if compute_dtype == torch.float16 and use_4bit:
 # Load base model
 model = AutoModelForCausalLM.from_pretrained(
     model_name,
-    cache_dir="/scratch/tingtind_root",
     quantization_config=bnb_config,
     device_map=device_map
 )
@@ -202,12 +201,12 @@ def formatting_func(example):
     for i in range(len(example['question'])):
         # answers = [example['opa'][i], example['opb'][i], example['opc'][i], example['opd'][i]]
         # choice_text = f"A. {example['opa'][i]}\nB. {example['opb'][i]}\nC. {example['opc'][i]}\nD. {example['opd'][i]}\n"
-        # text = (
-        #     f"### Question: {example['question'][i]}\n"
-        #     f"### Choices: {choice_text}\n"
-        #     f"### Answer: {answers_index[int(example['cop'][i])]}. {answers[int(example['cop'][i])]}\n"
-        # )
-        text = example['text'][i]
+        text = (
+            f"### Question: {example['input'][i]}\n"
+            # f"### Choices: {choice_text}\n"
+            f"### Answer: {example['output'][i]}\n"
+        )
+        # text = example['text'][i]
         output_texts.append(text)
     return output_texts
 
