@@ -197,7 +197,7 @@ training_arguments = TrainingArguments(
 def formatting_func(example):
     output_texts = []
     # answers_index = ["A", "B", "C", "D"]
-    for i in range(len(example['question'])):
+    for i in range(len(example['input'])):
         # answers = [example['opa'][i], example['opb'][i], example['opc'][i], example['opd'][i]]
         # choice_text = f"A. {example['opa'][i]}\nB. {example['opb'][i]}\nC. {example['opc'][i]}\nD. {example['opd'][i]}\n"
         text = (
