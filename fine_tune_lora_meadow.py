@@ -132,7 +132,6 @@ device_map = {"": 0}
 
 # Load dataset (you can process it here)
 dataset = load_dataset(dataset_name, split="train")
-dataset = dataset[0:100000]
 
 # Load tokenizer and model with QLoRA configuration
 compute_dtype = getattr(torch, bnb_4bit_compute_dtype)
@@ -197,7 +196,7 @@ training_arguments = TrainingArguments(
 
 def formatting_func(example):
     output_texts = []
-    answers_index = ["A", "B", "C", "D"]
+    # answers_index = ["A", "B", "C", "D"]
     for i in range(len(example['question'])):
         # answers = [example['opa'][i], example['opb'][i], example['opc'][i], example['opd'][i]]
         # choice_text = f"A. {example['opa'][i]}\nB. {example['opb'][i]}\nC. {example['opc'][i]}\nD. {example['opd'][i]}\n"
