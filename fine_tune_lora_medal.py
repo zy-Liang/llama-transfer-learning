@@ -132,6 +132,7 @@ device_map = {"": 0}
 
 # Load dataset (you can process it here)
 dataset = load_dataset(dataset_name, split="train")
+dataset = dataset[0:100000]
 
 # Load tokenizer and model with QLoRA configuration
 compute_dtype = getattr(torch, bnb_4bit_compute_dtype)
