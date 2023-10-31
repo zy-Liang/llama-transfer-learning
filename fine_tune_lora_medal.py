@@ -155,6 +155,7 @@ if compute_dtype == torch.float16 and use_4bit:
 # Load base model
 model = AutoModelForCausalLM.from_pretrained(
     model_name,
+    cache_dir="/scratch/tingtind_root",
     quantization_config=bnb_config,
     device_map=device_map
 )
