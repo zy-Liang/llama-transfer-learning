@@ -16,4 +16,4 @@ export 'HUGGINGFACE_TOKEN=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'
 
 huggingface-cli login --token $HUGGINGFACE_TOKEN
 
-python fine_tune_lora_medal.py
+python fine_tune_lora_meadow.py
