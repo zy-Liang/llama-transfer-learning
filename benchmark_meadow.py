@@ -57,7 +57,7 @@ tokenizer.pad_token = tokenizer.eos_token
 tokenizer.padding_side = "right" # Fix weird overflow issue with fp16 training
 
 print("==========================")
-dataset = dataset[0:10]
+# dataset = dataset[0:10]
 correct = 0
 for i in range(len(dataset)):
     choice_text = ""
