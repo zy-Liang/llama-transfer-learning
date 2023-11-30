@@ -63,6 +63,8 @@ for i in range(len(dataset)):
     choice_text = ""
     for option in dataset['options'][i]:
         choice_text += f"{option['key']}. {option['value']}\n"
+    # first we need to generate a prompt which is the example question, choices and example answer
+    # then we need to attach the real question and choices to the prompt, waiting for the model to generate the answer, which is a letter.
     prompt = (f"Example Input:\n"
         f"### Question: What's the result of 1 + 1?\n"
         f"### Choices:\n"
@@ -79,9 +81,9 @@ for i in range(len(dataset)):
         f"Output:\n"
         "### Answer:"
     )
-    pipe = pipeline(task="text-generation", model=model, tokenizer=tokenizer, max_new_tokens=10)
+    pipe = pipeline(task="text-generation", model=model, tokenizer=tokenizer, max_new_tokens=10) # max_new_tokens is the maximum number of tokens to generate
     result = pipe(f"{prompt}")
-    result = result[0]['generated_text']
+    result = result[0]['generated_text'] # result is a list of dictionaries, we only need the first one, and the generated_text key in the dictionary points to the generated text
     # print(prompt)
     # print('--------------------------')
     print(result)
@@ -91,7 +93,7 @@ for i in range(len(dataset)):
     result = result[index]
     print(f"model answer: {result}, correct answer: {dataset['answer_idx'][i]}")
     print("==========================")
-    if result == dataset['answer_idx'][i]:
+    if result == dataset['answer_idx'][i]: # compare the generated answer with the correct answer
         correct += 1
 print(f"Questions: {len(dataset)}")
 print(f"Correct questions: {correct}")
